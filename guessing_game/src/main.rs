@@ -1,3 +1,4 @@
+use std::cmp::Ordering;
 use std::io;
 use rand::Rng;
 
@@ -16,5 +17,13 @@ fn main() {
         .read_line(&mut guess)
         .expect("Failed to read line");     // 行の読み込みに失敗しました
 
+    let guess: u32 = guess.trim().parse().expect("Please type a number!");    // 数字を入力してください
+
     println!("You guessed: {}", guess);     // 次のように予想しました: {}
+
+    match guess.cmp(&secret_number) {
+        Ordering::Less => println!("Too small!"),    // 小さすぎです
+        Ordering::Greater => println!("Too big!"),   // 大きすぎです
+        Ordering::Equal => println!("You win!"),     // あたりです
+    }
 }
